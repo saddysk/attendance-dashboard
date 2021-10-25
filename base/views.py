@@ -3,5 +3,9 @@ from django.shortcuts import render, HttpResponse, redirect
 # Create your views here.
 
 
-def home(request):
-    return render(request, 'dashboard.html')
+def userDashboard(request):
+    return render(request, 'user.html')
+
+
+def adminDashboard(request):
+    return render(request, 'admin.html')
