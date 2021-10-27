@@ -21,7 +21,15 @@
     <!-- favicon -->
     <!-- <link rel="shortcut icon" type="image/jpg" href="https://vitap.ac.in/wp-content/uploads/2020/07/cropped-logo_icon-1-32x32.png" /> -->
 
-    <title>Admin Dashboard</title>
+    <title>Admin Login | Attendance Dashboard</title>
+
+    <style>
+        .border-bottom {
+            border-bottom: 3px solid rgb(0, 132, 255) !important;
+            background: none;
+            border: 0;
+        }
+    </style>
 </head>
 
 <body>
@@ -39,11 +47,8 @@
             <div class="collapse navbar-collapse col-8" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item me-5">
-                        <a class="nav-link active" aria-current="page" href="/user-dashboard/">User</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active border-2 border-bottom pb-1" aria-current="page"
-                            href="/admin-dashboard/">Admin</a>
+                        <a class="nav-link active border-2  fw-bold text-muted  pb-1" aria-current="page"
+                            href="/account/user-login/">Login as User</a>
                     </li>
                 </ul>
             </div>
@@ -58,63 +63,21 @@
     {% endfor %}
 
     <!-- main -->
-    <div class="container mt-5 px-5">
-        <div class="row">
-            <div class="col-2" style="width: max-content">
-                <img class="cropped rounded-circle border border-1"
-                    style="width: 120px; height: 120px; object-fit: cover" src="{% static 'profile-pic.jpg' %}" alt="dp"
-                    name="profilepicture" />
-                <!-- <div class="bg-primary rounded-circle d-flex" style="width: 110px; height: 110px">
-          <p class="m-auto text-center fw-normal text-white">Profile <br> Picture</p>
-        </div> -->
+    <div class="container col-6 mt-5">
+        <h2 class="text-center fw-light">Admin Login to Attendance Dashboard</h2>
+        <form action="#" class="my-5 ms-5 ps-5 w-75">
+            <div class="mb-4" id="email">
+                <label class="fs-5 text-muted" for="email">Enter your Email Id</label>
+                <input class="border-bottom d-block p-2 w-100 mt-2" type="email" name="email" id="email"
+                    placeholder="Registered Email Id">
             </div>
-            <div class="col-7 pt-3 ps-5">
-                <div class="row">
-                    <div class="col-4">
-                        <h5 class="fw-bold">Admin Id:</h5>
-                        <h5 class="fw-bold">Admin Name:</h5>
-                        <h5 class="fw-bold">School:</h5>
-                    </div>
-                    <div class="col-8">
-                        <h5>20BCB4596</h5>
-                        <h5>Himanshu Khurana</h5>
-                        <h5>Scope</h5>
-                    </div>
-                </div>
+            <div id="password">
+                <label class="fs-5 text-muted" for="password">Enter your Password</label>
+                <input class="border-bottom d-block p-2 w-100 mt-2" type="password" name="password" id="password"
+                    placeholder="Current Password">
             </div>
-            <div class="col-3 pt-3 mx-auto">
-                <!-- clock -->
-                <p class="fs-5 mb-1  text-primary" id="clock"></p>
-                <!-- date -->
-                <p class="fs-5 mb-1  text-primary" id="cur_date"></p>
-                <!-- location -->
-                <i class="fas fa-map-marker-alt text-primary"></i>
-                <span class="fs-5 mb-1 text-primary" id="location"></span>
-            </div>
-        </div>
-    </div>
-    <hr style="margin: 3rem 10rem; opacity: 0.15;">
-    <!-- plot -->
-    <div class="container px-5">
-        <!-- monthly/ weekly -->
-        <div class="d-inline-block float-end mb-5">
-            <button onclick="weekly_view()" class="badge border-0 px-3 py-2 fs-6" id="week_btn"
-                style="background: navy;">Weekly</button>
-            <button onclick="monthly_view()" class="badge border-0 px-3 py-2 fs-6 mx-3" id="month_btn"
-                style="background: blue;">Monthly</button>
-        </div>
-        <!-- school wise/ individual -->
-        <div class="d-inline-block float-start mb-5">
-            <button onclick="school_view()" class="badge border-0 px-3 py-2 fs-6" id="school_btn"
-                style="background: navy;">School Wise</button>
-            <button onclick="individual_view()" class="badge border-0 px-3 py-2 fs-6 mx-3" id="individual_btn"
-                style="background: blue;">Individual</button>
-        </div>
-        <!-- graph -->
-        <canvas id="weekly_attendance"></canvas>
-        <canvas id="monthly_attendance" style="display: none;"></canvas>
-        <canvas id="school_wise_attendance" style="display: none;"></canvas>
-        <canvas id="individual_attendance" style="display: none;"></canvas>
+            <input type="submit" value="Login" class="mt-5 btn btn-info px-5 fw-bold">
+        </form>
     </div>
 
 
