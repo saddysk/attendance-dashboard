@@ -28,8 +28,8 @@
     <!-- Header > navigation bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-none shadow-sm py-1 px-5">
         <div class="container">
-            <a class="navbar-brand col-4" href="/"><img src="{% static 'images/logos/header-logo.png' %}" alt="logo"
-                    style="width: 175px" /></a>
+            <a class="navbar-brand col-4" href="/"><img src="{% static 'mukham-logo.png' %}" alt="logo"
+                    style="width: 115px" /></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -70,12 +70,12 @@
             </div>
             <div class="col-7 pt-3 ps-5">
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-lg-3">
                         <h5 class="fw-bold">Admin Id:</h5>
                         <h5 class="fw-bold">Admin Name:</h5>
                         <h5 class="fw-bold">School:</h5>
                     </div>
-                    <div class="col-8">
+                    <div class="col-lg-9">
                         <h5>20BCB4596</h5>
                         <h5>Himanshu Khurana</h5>
                         <h5>Scope</h5>
@@ -97,24 +97,116 @@
     <!-- plot -->
     <div class="container px-5">
         <!-- monthly/ weekly -->
-        <div class="d-inline-block float-end mb-5">
+        <!-- <div class="d-inline-block float-end mb-5">
             <button onclick="weekly_view()" class="badge border-0 px-3 py-2 fs-6" id="week_btn"
                 style="background: navy;">Weekly</button>
             <button onclick="monthly_view()" class="badge border-0 px-3 py-2 fs-6 mx-3" id="month_btn"
                 style="background: blue;">Monthly</button>
-        </div>
+        </div> -->
         <!-- school wise/ individual -->
-        <div class="d-inline-block float-start mb-5">
+        <!-- <div class="d-inline-block float-start mb-5">
             <button onclick="school_view()" class="badge border-0 px-3 py-2 fs-6" id="school_btn"
                 style="background: navy;">School Wise</button>
             <button onclick="individual_view()" class="badge border-0 px-3 py-2 fs-6 mx-3" id="individual_btn"
                 style="background: blue;">Individual</button>
-        </div>
+        </div> -->
         <!-- graph -->
-        <canvas id="weekly_attendance"></canvas>
+        <!-- <canvas id="weekly_attendance"></canvas>
         <canvas id="monthly_attendance" style="display: none;"></canvas>
         <canvas id="school_wise_attendance" style="display: none;"></canvas>
-        <canvas id="individual_attendance" style="display: none;"></canvas>
+        <canvas id="individual_attendance" style="display: none;"></canvas> -->
+
+        <!-- Display Data -->
+        <div class="row">
+            <div class="col-lg-4 fs-4">Attendance Logs</div>
+            <div class="col-lg-3"></div>
+            <div class="col-lg-5 d-flex">
+                <div class="dropdown me-4">
+                    <button class="btn btn-secondary dropdown-toggle bg-light text-dark" type="button"
+                        id="dropdownMenuButton1" style="padding: 2px 0.5rem;" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        View
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><button class="dropdown-item" onclick="displaySchoolView()">School Wise</button></li>
+                        <li><button class="dropdown-item" onclick="displayIndividualView()">Individual</button></li>
+                    </ul>
+                </div>
+                <div>
+                    <input class="me-4" type="date" name="fromDate" id="fromDate">
+                    <input type="date" name="toDate" id="toDate">
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col">
+                <!-- display Table -->
+                <!-- SCHOOL VIEW -->
+                <div id="school_view">
+                    <table class="table shadow">
+                        <thead>
+                            <tr class="text-muted">
+                                <th scope="col">Date</th>
+                                <th scope="col">School Name</th>
+                                <th scope="col">Total Present (%)</th>
+                                <th scope="col">Total Absent (%)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                {% for data in attendance %}
+                                <td>{{ data.date }}</td>
+                                <!-- morinng -->
+                                {% if data.morningStatus == 1 %}
+                                <td style="background: #1BED88;">Present</td>
+                                {% else %}
+                                <td style="background: #F18787;">Absent</td>
+                                {% endif %}
+                                <!-- evening -->
+                                {% if data.eveningStatus == 1 %}
+                                <td style="background: #1BED88;">Present</td>
+                                {% else %}
+                                <td style="background: #F18787;">Absent</td>
+                                {% endif %}
+                                {% endfor %}
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- INDIVIDUAL VIEW -->
+                <div id="individual_view" style="display: none;">
+                    <table class="table shadow">
+                        <thead>
+                            <tr class="text-muted">
+                                <th scope="col">School Name</th>
+                                <th scope="col">Individual Name</th>
+                                <th scope="col">Total Present (%)</th>
+                                <th scope="col">Total Absent (%)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                {% for data in attendance %}
+                                <td>{{ data.date }}</td>
+                                <!-- morinng -->
+                                {% if data.morningStatus == 1 %}
+                                <td style="background: #1BED88;">Present</td>
+                                {% else %}
+                                <td style="background: #F18787;">Absent</td>
+                                {% endif %}
+                                <!-- evening -->
+                                {% if data.eveningStatus == 1 %}
+                                <td style="background: #1BED88;">Present</td>
+                                {% else %}
+                                <td style="background: #F18787;">Absent</td>
+                                {% endif %}
+                                {% endfor %}
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 
 
@@ -156,12 +248,13 @@
         </div>
     </footer>
 
-    <!-- Optional JavaScript; choose one of the two! -->
-    <script src="{% static 'script.js' %}"></script>
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+    <script src="{% static 'script.js' %}"></script>
 </body>
 
 </html>

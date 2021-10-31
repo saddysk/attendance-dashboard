@@ -28,8 +28,8 @@
   <!-- Header > navigation bar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-none shadow-sm py-1 px-5">
     <div class="container">
-      <a class="navbar-brand col-4" href="/"><img src="{% static 'images/logos/header-logo.png' %}" alt="logo"
-          style="width: 175px" /></a>
+      <a class="navbar-brand col-4" href="/"><img src="{% static 'mukham-logo.png' %}" alt="logo"
+          style="width: 115px" /></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -67,15 +67,15 @@
       </div>
       <div class="col-7 pt-3 ps-5">
         <div class="row">
-          <div class="col-4">
+          <div class="col-lg-3">
             <h5 class="fw-bold">Emp. Name:</h5>
             <h5 class="fw-bold">Emp. Id:</h5>
             <h5 class="fw-bold">School:</h5>
           </div>
-          <div class="col-8">
-            <h5>Himanshu Khurana</h5>
-            <h5>20BCB4596</h5>
-            <h5>Scope</h5>
+          <div class="col-lg-9">
+            <h5>{{ userDetails.fullName }}</h5>
+            <h5>AA67HJ0</h5>
+            <h5>{{ userDetails.school }}</h5>
           </div>
         </div>
       </div>
@@ -94,15 +94,64 @@
   <!-- plot -->
   <div class="container px-5">
     <!-- monthly/ weekly -->
-    <div class="d-inline-block float-end mb-5">
+    <!-- <div class="d-inline-block float-end mb-5">
       <button onclick="weekly_view()" class="badge border-0 px-3 py-2 fs-6" id="week_btn"
         style="background: navy;">Weekly</button>
       <button onclick="monthly_view()" class="badge border-0 px-3 py-2 fs-6 mx-3" id="month_btn"
         style="background: blue;">Monthly</button>
-    </div>
+    </div> -->
     <!-- graph -->
-    <canvas id="weekly_attendance"></canvas>
-    <canvas id="monthly_attendance" style="display: none;"></canvas>
+    <!-- <canvas id="weekly_attendance"></canvas>
+    <canvas id="monthly_attendance" style="display: none;"></canvas> -->
+
+    <!-- Display Data -->
+    <div class="row">
+      <div class="col-lg-3 fs-4">Attendance Logs</div>
+      <div class="col-lg-5"></div>
+      <div class="col-lg-4">
+        <input class="me-4" type="date" name="fromDate" id="fromDate">
+        <input type="date" name="toDate" id="toDate">
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-lg-8">
+        <!-- display Table -->
+        <table class="table shadow">
+          <thead>
+            <tr class="text-muted">
+              <th scope="col">Date</th>
+              <th scope="col">Morning</th>
+              <th scope="col">Evening</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              {% for data in attendance %}
+              <td>{{ data.date }}</td>
+              <!-- morinng -->
+              {% if data.morningStatus == 1 %}
+              <td style="background: #1BED88;">Present</td>
+              {% else %}
+              <td style="background: #F18787;">Absent</td>
+              {% endif %}
+              <!-- evening -->
+              {% if data.eveningStatus == 1 %}
+              <td style="background: #1BED88;">Present</td>
+              {% else %}
+              <td style="background: #F18787;">Absent</td>
+              {% endif %}
+              {% endfor %}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- display Doughnut -->
+      <div class="col-lg-4">
+        <!-- Display Pie -->
+        <canvas id="weekly_attendance"></canvas>
+        <p class="text-center mt-3">Total attendance (%) for the choosen period.</p>
+      </div>
+    </div>
   </div>
 
 

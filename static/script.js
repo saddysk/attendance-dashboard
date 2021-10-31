@@ -76,6 +76,7 @@ function showPosition(position) {
 getLocation();
 
 // ------- Attendance Graph -------
+/*
 let weekly = document.getElementById("weekly_attendance"),
   monthly = document.getElementById("monthly_attendance"),
   week_btn = document.getElementById("week_btn"),
@@ -118,6 +119,7 @@ function monthly_view() {
   school.style.display = "none";
   individual.style.display = "none";
 }
+*/
 
 // weekly
 function weekly_attendance() {
@@ -128,7 +130,7 @@ function weekly_attendance() {
       {
         backgroundColor: "rgb(145, 190, 221)",
         data: [curr_attendance, 100 - curr_attendance],
-        backgroundColor: ["#6accbc", "#b8255f"],
+        backgroundColor: ["#FCE9B0", "#F1B4AD"],
       },
     ],
   };
@@ -140,6 +142,7 @@ function weekly_attendance() {
 weekly_attendance();
 
 // monthly
+/*
 function monthly_attendance() {
   let curr_attendance = 85;
   let attendance_data = {
@@ -148,7 +151,7 @@ function monthly_attendance() {
       {
         backgroundColor: "rgb(145, 190, 221)",
         data: [curr_attendance, 100 - curr_attendance],
-        backgroundColor: ["#6accbc", "#b8255f"],
+        backgroundColor: ["#FCE9B0", "#F1B4AD"],
       },
     ],
   };
@@ -158,10 +161,12 @@ function monthly_attendance() {
   });
 }
 monthly_attendance();
+*/
 
 /* !!!---  ADMIN DASHBOARD ---!!!   */
 
 // school wise
+/*
 function school_wise_attendance() {
   let curr_attendance = 77;
   let attendance_data = {
@@ -170,7 +175,7 @@ function school_wise_attendance() {
       {
         backgroundColor: "rgb(145, 190, 221)",
         data: [curr_attendance, 100 - curr_attendance],
-        backgroundColor: ["#6accbc", "#b8255f"],
+        backgroundColor: ["#FCE9B0", "#F1B4AD"],
       },
     ],
   };
@@ -180,8 +185,10 @@ function school_wise_attendance() {
   });
 }
 school_wise_attendance();
+*/
 
 // individual
+/*
 function individual_attendance() {
   let curr_attendance = 69;
   let attendance_data = {
@@ -190,7 +197,7 @@ function individual_attendance() {
       {
         backgroundColor: "rgb(145, 190, 221)",
         data: [curr_attendance, 100 - curr_attendance],
-        backgroundColor: ["#6accbc", "#b8255f"],
+        backgroundColor: ["#FCE9B0", "#F1B4AD"],
       },
     ],
   };
@@ -200,3 +207,20 @@ function individual_attendance() {
   });
 }
 individual_attendance();
+*/
+
+// display views for admin page
+let schoolView = document.getElementById("school_view"),
+  individualView = document.getElementById("individual_view");
+// display School View
+function displaySchoolView() {
+  console.log("school");
+  schoolView.style.display = "block";
+  individualView.style.display = "none";
+}
+// display Individual View
+function displayIndividualView() {
+  console.log("individual");
+  individualView.style.display = "block";
+  schoolView.style.display = "none";
+}
