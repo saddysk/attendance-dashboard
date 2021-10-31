@@ -70,12 +70,12 @@
             </div>
             <div class="col-7 pt-3 ps-5">
                 <div class="row">
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                         <h5 class="fw-bold">Admin Id:</h5>
                         <h5 class="fw-bold">Admin Name:</h5>
                         <h5 class="fw-bold">School:</h5>
                     </div>
-                    <div class="col-lg-9">
+                    <div class="col-lg-8">
                         <h5>20BCB4596</h5>
                         <h5>Himanshu Khurana</h5>
                         <h5>Scope</h5>
@@ -133,8 +133,12 @@
                     </ul>
                 </div>
                 <div>
-                    <input class="me-4" type="date" name="fromDate" id="fromDate">
-                    <input type="date" name="toDate" id="toDate">
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="date" name="fromDate" id="fromDate">
+                        <input class="mx-2" type="date" name="toDate" id="toDate">
+                        <input type="submit" value="Go">
+                    </form>
                 </div>
             </div>
         </div>

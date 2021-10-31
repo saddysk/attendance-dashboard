@@ -123,13 +123,15 @@ function monthly_view() {
 
 // weekly
 function weekly_attendance() {
-  let curr_attendance = 75;
+  positivePercent = document.getElementById("positivePercent").value;
+  negativePercent = document.getElementById("negativePercent").value;
+  // let positivePercent = 75;
   let attendance_data = {
     labels: ["Present", "Absent"],
     datasets: [
       {
         backgroundColor: "rgb(145, 190, 221)",
-        data: [curr_attendance, 100 - curr_attendance],
+        data: [positivePercent, negativePercent],
         backgroundColor: ["#FCE9B0", "#F1B4AD"],
       },
     ],

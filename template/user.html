@@ -74,7 +74,7 @@
           </div>
           <div class="col-lg-9">
             <h5>{{ userDetails.fullName }}</h5>
-            <h5>AA67HJ0</h5>
+            <h5>{{ userDetails.empId }}</h5>
             <h5>{{ userDetails.school }}</h5>
           </div>
         </div>
@@ -109,14 +109,18 @@
       <div class="col-lg-3 fs-4">Attendance Logs</div>
       <div class="col-lg-5"></div>
       <div class="col-lg-4">
-        <input class="me-4" type="date" name="fromDate" id="fromDate">
-        <input type="date" name="toDate" id="toDate">
+        <form method="post">
+          {% csrf_token %}
+          <input type="date" name="fromDate" id="fromDate">
+          <input class="mx-2" type="date" name="toDate" id="toDate">
+          <input type="submit" value="Go">
+        </form>
       </div>
     </div>
     <div class="row mt-4">
-      <div class="col-lg-8">
+      <div class="col-lg-8 shadow rounded-3">
         <!-- display Table -->
-        <table class="table shadow">
+        <table class="table">
           <thead>
             <tr class="text-muted">
               <th scope="col">Date</th>
@@ -124,29 +128,35 @@
               <th scope="col">Evening</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              {% for data in attendance %}
-              <td>{{ data.date }}</td>
-              <!-- morinng -->
-              {% if data.morningStatus == 1 %}
-              <td style="background: #1BED88;">Present</td>
-              {% else %}
-              <td style="background: #F18787;">Absent</td>
-              {% endif %}
-              <!-- evening -->
-              {% if data.eveningStatus == 1 %}
-              <td style="background: #1BED88;">Present</td>
-              {% else %}
-              <td style="background: #F18787;">Absent</td>
-              {% endif %}
-              {% endfor %}
-            </tr>
-          </tbody>
         </table>
+        <div style="max-height: 300px; overflow-y: auto;">
+          <table class="table">
+            <tbody>
+              {% for data in attendance %}
+              <tr>
+                <td>{{ data.date }}</td>
+                <!-- morinng -->
+                {% if data.morningStatus == 1 %}
+                <td style="background: #1BED88;">Present</td>
+                {% else %}
+                <td style="background: #F18787;">Absent</td>
+                {% endif %}
+                <!-- evening -->
+                {% if data.eveningStatus == 1 %}
+                <td style="background: #1BED88;">Present</td>
+                {% else %}
+                <td style="background: #F18787;">Absent</td>
+                {% endif %}
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
       </div>
       <!-- display Doughnut -->
       <div class="col-lg-4">
+        <input type="hidden" name="positivePercent" id="positivePercent" value="{{ positivePercent }}">
+        <input type="hidden" name="negativePercent" id="negativePercent" value="{{ negativePercent }}">
         <!-- Display Pie -->
         <canvas id="weekly_attendance"></canvas>
         <p class="text-center mt-3">Total attendance (%) for the choosen period.</p>
