@@ -1,0 +1,34 @@
+tbody {
+  display: block;
+  max-height: 325px;
+  overflow-y: auto;
+}
+
+thead,
+tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+hr {
+  opacity: 0.15;
+  margin: 2.5rem;
+}
+
+/* specific for desktop view */
+@media (min-width: 510px) {
+  hr {
+    margin-left: 10rem !important;
+    margin-right: 10rem !important;
+  }
+}
+
+/* specific for mobile view */
+@media (max-width: 480px) {
+  #datetimelocn {
+    position: relative;
+    left: 10rem;
+    margin-top: -15rem;
+  }
+}
