@@ -76,56 +76,12 @@ function showPosition(position) {
 getLocation();
 
 // ------- Attendance Graph -------
-/*
-let weekly = document.getElementById("weekly_attendance"),
-  monthly = document.getElementById("monthly_attendance"),
-  week_btn = document.getElementById("week_btn"),
-  month_btn = document.getElementById("month_btn");
-let school = document.getElementById("school_wise_attendance"),
-  individual = document.getElementById("individual_attendance"),
-  school_btn = document.getElementById("school_btn"),
-  individual_btn = document.getElementById("individual_btn");
-
-function school_view() {
-  school_btn.style.background = "navy";
-  individual_btn.style.background = "blue";
-  school.style.display = "block";
-  individual.style.display = "none";
-  monthly.style.display = "none";
-  weekly.style.display = "none";
-}
-function individual_view() {
-  school_btn.style.background = "blue";
-  individual_btn.style.background = "navy";
-  school.style.display = "none";
-  individual.style.display = "block";
-  monthly.style.display = "none";
-  weekly.style.display = "none";
-}
-
-function weekly_view() {
-  week_btn.style.background = "navy";
-  month_btn.style.background = "blue";
-  weekly.style.display = "block";
-  monthly.style.display = "none";
-  school.style.display = "none";
-  individual.style.display = "none";
-}
-function monthly_view() {
-  month_btn.style.background = "navy";
-  week_btn.style.background = "blue";
-  monthly.style.display = "block";
-  weekly.style.display = "none";
-  school.style.display = "none";
-  individual.style.display = "none";
-}
-*/
 
 // weekly
-function weekly_attendance() {
+function user_attendance() {
   positivePercent = document.getElementById("positivePercent").value;
   negativePercent = document.getElementById("negativePercent").value;
-  // let positivePercent = 75;
+
   let attendance_data = {
     labels: ["Present", "Absent"],
     datasets: [
@@ -136,80 +92,14 @@ function weekly_attendance() {
       },
     ],
   };
-  new Chart("weekly_attendance", {
+  new Chart("user_attendance", {
     type: "doughnut",
     data: attendance_data,
   });
 }
-weekly_attendance();
+user_attendance();
 
-// monthly
-/*
-function monthly_attendance() {
-  let curr_attendance = 85;
-  let attendance_data = {
-    labels: ["Present", "Absent"],
-    datasets: [
-      {
-        backgroundColor: "rgb(145, 190, 221)",
-        data: [curr_attendance, 100 - curr_attendance],
-        backgroundColor: ["#FCE9B0", "#F1B4AD"],
-      },
-    ],
-  };
-  new Chart("monthly_attendance", {
-    type: "doughnut",
-    data: attendance_data,
-  });
-}
-monthly_attendance();
-*/
-
-/* !!!---  ADMIN DASHBOARD ---!!!   */
-
-// school wise
-/*
-function school_wise_attendance() {
-  let curr_attendance = 77;
-  let attendance_data = {
-    labels: ["Present", "Absent"],
-    datasets: [
-      {
-        backgroundColor: "rgb(145, 190, 221)",
-        data: [curr_attendance, 100 - curr_attendance],
-        backgroundColor: ["#FCE9B0", "#F1B4AD"],
-      },
-    ],
-  };
-  new Chart("school_wise_attendance", {
-    type: "doughnut",
-    data: attendance_data,
-  });
-}
-school_wise_attendance();
-*/
-
-// individual
-/*
-function individual_attendance() {
-  let curr_attendance = 69;
-  let attendance_data = {
-    labels: ["Present", "Absent"],
-    datasets: [
-      {
-        backgroundColor: "rgb(145, 190, 221)",
-        data: [curr_attendance, 100 - curr_attendance],
-        backgroundColor: ["#FCE9B0", "#F1B4AD"],
-      },
-    ],
-  };
-  new Chart("individual_attendance", {
-    type: "doughnut",
-    data: attendance_data,
-  });
-}
-individual_attendance();
-*/
+// !!!---  ADMIN SECTION   ---!!!
 
 // display views for admin page
 let schoolView = document.getElementById("school_view"),
