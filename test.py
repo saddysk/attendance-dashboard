@@ -9,7 +9,18 @@ firebase_admin.initialize_app(cred, {
 
 db = firestore.client()
 
-docs = db.collection("Users").where('school', '==', 'SCOPE').stream()
 
-for doc in docs:
-    print(f'{doc.id}')
+def schoolWise(school='SCOPE'):
+    docs = db.collection("Users").where('school', '==', school).stream()
+    for doc in docs:
+        print(doc.id)
+# schoolWise('SCOPE')
+
+
+def individualView():
+    docs = db.collection("Users").stream()
+    for doc in docs:
+        userId = doc.id
+
+
+individualView()

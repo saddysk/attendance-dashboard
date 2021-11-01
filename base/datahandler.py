@@ -12,7 +12,7 @@ firebase_admin.initialize_app(cred, {
 db = firestore.client()
 
 
-# get user's personal details
+# get personal details
 def getUserDetails(userId):
     ref = db.collection("Users").document(userId)
 
@@ -72,9 +72,42 @@ def getAttendance(userId, fromDate=datetime.today().replace(day=1), toDate=datet
         (totalPositiveCount + totalNegativeCount) * 100
     negativePercent = totalNegativeCount / \
         (totalPositiveCount + totalNegativeCount) * 100
-    percentage = {
+    attendanceDetails = {
         'attendance': attendance,
-        'positivePercent': positivePercent,
-        'negativePercent': negativePercent,
+        'positivePercent': float("{:.2f}".format(positivePercent)),
+        'negativePercent': float("{:.2f}".format(negativePercent)),
     }
-    return percentage
+    return attendanceDetails
+
+
+# get individual attendance
+def getIndividualAttendance(fromDate, toDate):
+    docs = db.collection("Users").stream()
+
+    individualAttendance = []
+    for doc in docs:
+        userId = doc.id
+        userDetail = getUserDetails(userId)
+        userAttendance = getAttendance(userId, fromDate, toDate)
+
+        attendance = {
+            'school': userDetail['school'],
+            'fullName': userDetail['fullName'],
+            'totalPresent': userAttendance['positivePercent'],
+            'totalAbsent': userAttendance['negativePercent'],
+        }
+        individualAttendance.insert(0, attendance)
+    return individualAttendance
+
+
+# get school wise attendance
+"""
+def getAttendanceSchoolWise(school, fromDate, toDate):
+    # get users belong to the given school
+    docs = db.collection("Users").where('school', '==', school).stream()
+
+    for doc in docs:
+        userId = doc.id
+
+        print('\n\n*************', None, '\n\n*************')
+"""

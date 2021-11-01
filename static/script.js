@@ -101,18 +101,15 @@ user_attendance();
 
 // !!!---  ADMIN SECTION   ---!!!
 
-// display views for admin page
-let schoolView = document.getElementById("school_view"),
-  individualView = document.getElementById("individual_view");
 // display School View
 function displaySchoolView() {
-  console.log("school");
-  schoolView.style.display = "block";
-  individualView.style.display = "none";
+  document.getElementById("selectSchool").style.display = "inline-block";
+  document.getElementById("school_view").style.display = "block";
+  document.getElementById("individual_view").style.display = "none";
 }
 // display Individual View
 function displayIndividualView() {
-  console.log("individual");
-  individualView.style.display = "block";
-  schoolView.style.display = "none";
+  document.getElementById("individual_view").style.display = "block";
+  document.getElementById("school_view").style.display = "none";
+  document.getElementById("selectSchool").style.display = "none";
 }

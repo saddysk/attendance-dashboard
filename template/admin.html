@@ -26,7 +26,7 @@
 
 <body>
     <!-- Header > navigation bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-none shadow-sm py-1 px-5">
+    <nav class="navbar navbar-expand-lg navbar-light bg-none shadow-sm py-1 px-lg-5 px-3">
         <div class="container">
             <a class="navbar-brand col-4" href="/"><img src="{% static 'mukham-logo.png' %}" alt="logo"
                     style="width: 115px" /></a>
@@ -58,31 +58,28 @@
     {% endfor %}
 
     <!-- main -->
-    <div class="container mt-5 px-5">
+    <div class="container mt-5 px-lg-5 px-3">
         <div class="row">
-            <div class="col-2" style="width: max-content">
+            <div class="col-lg-2" style="width: max-content">
                 <img class="cropped rounded-circle border border-1"
                     style="width: 120px; height: 120px; object-fit: cover" src="{% static 'profile-pic.jpg' %}" alt="dp"
                     name="profilepicture" />
-                <!-- <div class="bg-primary rounded-circle d-flex" style="width: 110px; height: 110px">
-          <p class="m-auto text-center fw-normal text-white">Profile <br> Picture</p>
-        </div> -->
             </div>
-            <div class="col-7 pt-3 ps-5">
+            <div class="col-lg-7 pt-lg-3 pt-4 ps-lg-5">
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 col-5 pe-0">
                         <h5 class="fw-bold">Admin Id:</h5>
                         <h5 class="fw-bold">Admin Name:</h5>
                         <h5 class="fw-bold">School:</h5>
                     </div>
-                    <div class="col-lg-8">
-                        <h5>20BCB4596</h5>
-                        <h5>Himanshu Khurana</h5>
-                        <h5>Scope</h5>
+                    <div class="col-lg-8 col-7 p-0">
+                        <h5>{{ adminDetails.empId }}</h5>
+                        <h5>{{ adminDetails.fullName }}</h5>
+                        <h5>{{ adminDetails.school }}</h5>
                     </div>
                 </div>
             </div>
-            <div class="col-3 pt-3 mx-auto">
+            <div class="col-lg-3 col-7 pt-3 mx-lg-auto" id="datetimelocn">
                 <!-- clock -->
                 <p class="fs-5 mb-1  text-primary" id="clock"></p>
                 <!-- date -->
@@ -93,35 +90,16 @@
             </div>
         </div>
     </div>
-    <hr style="margin: 3rem 10rem; opacity: 0.15;">
-    <!-- plot -->
-    <div class="container px-5">
-        <!-- monthly/ weekly -->
-        <!-- <div class="d-inline-block float-end mb-5">
-            <button onclick="weekly_view()" class="badge border-0 px-3 py-2 fs-6" id="week_btn"
-                style="background: navy;">Weekly</button>
-            <button onclick="monthly_view()" class="badge border-0 px-3 py-2 fs-6 mx-3" id="month_btn"
-                style="background: blue;">Monthly</button>
-        </div> -->
-        <!-- school wise/ individual -->
-        <!-- <div class="d-inline-block float-start mb-5">
-            <button onclick="school_view()" class="badge border-0 px-3 py-2 fs-6" id="school_btn"
-                style="background: navy;">School Wise</button>
-            <button onclick="individual_view()" class="badge border-0 px-3 py-2 fs-6 mx-3" id="individual_btn"
-                style="background: blue;">Individual</button>
-        </div> -->
-        <!-- graph -->
-        <!-- <canvas id="weekly_attendance"></canvas>
-        <canvas id="monthly_attendance" style="display: none;"></canvas>
-        <canvas id="school_wise_attendance" style="display: none;"></canvas>
-        <canvas id="individual_attendance" style="display: none;"></canvas> -->
+    <hr>
 
+    <!-- attendance -->
+    <div class="container px-lg-5 px-3">
         <!-- Display Data -->
         <div class="row">
             <div class="col-lg-4 fs-4">Attendance Logs</div>
-            <div class="col-lg-3"></div>
-            <div class="col-lg-5 d-flex">
-                <div class="dropdown me-4">
+            <div class="col-lg-2 my-2"></div>
+            <div class="col-lg-6 d-lg-flex">
+                <div class="dropdown me-lg-4 mb-lg-1 mb-3">
                     <button class="btn btn-secondary dropdown-toggle bg-light text-dark" type="button"
                         id="dropdownMenuButton1" style="padding: 2px 0.5rem;" data-bs-toggle="dropdown"
                         aria-expanded="false">
@@ -135,8 +113,13 @@
                 <div>
                     <form method="post">
                         {% csrf_token %}
+                        <select class="me-lg-2 bg-none" name="selectSchool" id="selectSchool" style="display: none;">
+                            <option>Scope</option>
+                            <option>Sense</option>
+                        </select>
+
                         <input type="date" name="fromDate" id="fromDate">
-                        <input class="mx-2" type="date" name="toDate" id="toDate">
+                        <input class="mx-lg-2" type="date" name="toDate" id="toDate">
                         <input type="submit" value="Go">
                     </form>
                 </div>
@@ -146,7 +129,7 @@
             <div class="col">
                 <!-- display Table -->
                 <!-- SCHOOL VIEW -->
-                <div id="school_view">
+                <div id="school_view" style="display: none;">
                     <table class="table shadow">
                         <thead>
                             <tr class="text-muted">
@@ -157,9 +140,10 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% for data in attendance %}
                             <tr>
-                                {% for data in attendance %}
                                 <td>{{ data.date }}</td>
+                                <td>{{ data.school }}</td>
                                 <!-- morinng -->
                                 {% if data.morningStatus == 1 %}
                                 <td style="background: #1BED88;">Present</td>
@@ -172,13 +156,13 @@
                                 {% else %}
                                 <td style="background: #F18787;">Absent</td>
                                 {% endif %}
-                                {% endfor %}
                             </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
                 <!-- INDIVIDUAL VIEW -->
-                <div id="individual_view" style="display: none;">
+                <div id="individual_view">
                     <table class="table shadow">
                         <thead>
                             <tr class="text-muted">
@@ -189,23 +173,14 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% for data in individualAttendance %}
                             <tr>
-                                {% for data in attendance %}
-                                <td>{{ data.date }}</td>
-                                <!-- morinng -->
-                                {% if data.morningStatus == 1 %}
-                                <td style="background: #1BED88;">Present</td>
-                                {% else %}
-                                <td style="background: #F18787;">Absent</td>
-                                {% endif %}
-                                <!-- evening -->
-                                {% if data.eveningStatus == 1 %}
-                                <td style="background: #1BED88;">Present</td>
-                                {% else %}
-                                <td style="background: #F18787;">Absent</td>
-                                {% endif %}
-                                {% endfor %}
+                                <td>{{ data.school }}</td>
+                                <td>{{ data.fullName }}</td>
+                                <td>{{ data.totalPresent }}</td>
+                                <td>{{ data.totalAbsent }}</td>
                             </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
