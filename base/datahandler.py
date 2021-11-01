@@ -34,10 +34,7 @@ def getAttendance(userId, fromDate=datetime.today().replace(day=1), toDate=datet
     ref = db.collection("Attendance").document(userId)
 
     doc = ref.get()
-    if doc.exists:
-        data = doc.to_dict()
-    else:
-        return None
+    data = doc.to_dict()
 
     attendance = []
     totalPositiveCount = 0
@@ -101,13 +98,5 @@ def getIndividualAttendance(fromDate, toDate):
 
 
 # get school wise attendance
-"""
 def getAttendanceSchoolWise(school, fromDate, toDate):
-    # get users belong to the given school
-    docs = db.collection("Users").where('school', '==', school).stream()
-
-    for doc in docs:
-        userId = doc.id
-
-        print('\n\n*************', None, '\n\n*************')
-"""
+    pass

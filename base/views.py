@@ -34,18 +34,12 @@ def userDashboard(request):
             return render(request, 'user.html', context)
 
         attendanceDetails = data.getAttendance(userId, newFromDate, newToDate)
-        if attendanceDetails is None:
-            messages.error(request, "Some Error occured! Please try again.")
-            return render(request, 'user.html', context)
         context['attendance'] = attendanceDetails['attendance']
         context['positivePercent'] = attendanceDetails['positivePercent']
         context['negativePercent'] = attendanceDetails['negativePercent']
         return render(request, 'user.html', context)
 
     attendanceDetails = data.getAttendance(userId)
-    if attendanceDetails is None:
-        messages.error(request, "Some Error occured! Please try again.")
-        return render(request, 'user.html', context)
     context['attendance'] = attendanceDetails['attendance']
     context['positivePercent'] = attendanceDetails['positivePercent']
     context['negativePercent'] = attendanceDetails['negativePercent']
@@ -81,11 +75,6 @@ def adminDashboard(request):
 
         individualAttendance = data.getIndividualAttendance(
             newFromDate, newToDate)
-        if individualAttendance is None:
-            messages.error(request, "Some Error occured! Please try again.")
-            return render(request, 'admin.html', context)
-
         context['individualAttendance'] = individualAttendance
-        print('\n\n*-*************', individualAttendance)
         return render(request, 'admin.html', context)
     return render(request, 'admin.html', context)
